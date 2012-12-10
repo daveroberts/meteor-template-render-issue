@@ -1,0 +1,65 @@
+<head>
+  <title>Leaderboard</title>
+</head>
+
+<body>
+  <div id="outer">
+    {{> leaderboard}}
+  </div>
+</body>
+
+<template name="leaderboard">
+  <div class="leaderboard">
+    {{#each players}}
+      {{> player}}
+    {{/each}}
+  </div>
+
+  {{#if selected_name}}
+  <div class="details">
+    <div class="name">{{selected_name}}</div>
+    <input type="button" id="increment_button" class="inc" value="Give 5 points" />
+  </div>
+  {{/if}}
+
+  {{#unless selected_name}}
+  <div class="none">Click a player to select!</div>
+  {{/unless}}
+
+  {{> add_player}}
+
+  <div style="border: 1px solid black; padding: 1em;">
+    <div style="border: 1px solid green; margin: 1em;">
+      <div>Raw template value, changes name correctly</div>
+      <div><span>{{sort_val}}</span></div>
+    </div>
+    <div style="border: 1px solid green; margin: 1em;">
+      <div>html button element, changes name correctly (note that the button is not functional on purpose)</div>
+      <div><button>{{sort_val}}</button></div>
+    </div>
+    <div style="border: 1px solid red; margin: 1em;">
+      <div>html input type=button.  Press this button to change sort.  The value of the button does NOT update properly</div>
+      <div><input type="button" id="toggle_sort" value='{{sort_val}}' /></div>
+    </div>
+  </div>
+  <div>
+    <input type="button" id="randomize_scores" value="Randomize Scores" />
+  </div>
+</template>
+
+<template name="player">
+  <div class="player {{selected}}">
+    <span class="name">{{name}}</span>
+    <span class="score">{{score}}</span>
+    <span><input type="button" id="delete" value="Remove"/></span>
+  </div>
+</template>
+
+<template name="add_player">
+  <div id="add_player">
+    <h2>Add a new player</h2>
+    <input type="text" id="new_name" />
+    <input type="button" id="add" value="Add" />
+  </div>
+</template>
+
